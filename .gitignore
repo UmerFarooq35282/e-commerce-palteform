@@ -1,0 +1,30 @@
+# Dependencies
+client/node_modules/
+server/node_modules/
+
+# Environment Variables
+client/.env
+server/.env
+
+# Build Files
+client/dist/
+server/dist/
+
+# Logs
+*.log
+logs/
+
+# OS Files
+.DS_Store
+Thumbs.db
+
+# Editor
+.vscode/
+.idea/
+
+# Coverage
+coverage/
+
+# Misc
+*.tmp
+*.temp
