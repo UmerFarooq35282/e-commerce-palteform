@@ -1,12 +1,10 @@
-import AppError from "../utils/app-error.js"
+import asyncHandler from "../utils/async-handler.js";
 
-export const healthCheckController = (req, res) => {
-    // res.json({
-    //     "success": true,
-    //     "message": "Server is running",
-    //     "timestamp": "...",
-    //     "environment": "development"
-    // })
-    throw new AppError("Health endpoint failed" , 500)
-
-}
+export const healthCheckController = asyncHandler(async (req, res) => {
+    res.status(200).json({
+        success: true,
+        message: "Server is running",
+        timestamp: new Date().toISOString(),
+        environment: process.env.NODE_ENV,
+    });
+});
