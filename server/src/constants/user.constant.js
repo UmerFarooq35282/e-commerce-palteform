@@ -15,6 +15,6 @@ export const ADDRESS_TYPES = Object.freeze({
     OTHER: "other",
 });
 
-export const MIN_PASSWORD_LEN = 8;
+export const PASSWORD_MIN_LENGTH = 8;
 
 export const BCRYPT_SALT_ROUNDS = Number(process.env.BCRYPT_SALT_ROUNDS) || 12;
