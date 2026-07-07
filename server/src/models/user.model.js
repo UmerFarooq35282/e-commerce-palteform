@@ -8,7 +8,7 @@ import {
     PASSWORD_MIN_LENGTH,
     USER_ROLES,
     USER_STATUS,
-} from "../constants/user.constants.js";
+} from "../constants/user.constant.js";
 
 const addressSchema = new mongoose.Schema(
     {
@@ -177,7 +177,6 @@ const userSchema = new mongoose.Schema(
     },
     {
         timestamps: true,
-        versionKey: false,
         optimisticConcurrency: true,
         toJSON: {
             transform(_doc, ret) {
@@ -198,9 +197,9 @@ userSchema.index({ role: 1, status: 1 });
 userSchema.index({ passwordResetToken: 1 });
 userSchema.index({ emailVerificationToken: 1 });
 
-userSchema.pre("save", async function hashPasswordBeforeSave(next) {
+userSchema.pre("save", async function hashPasswordBeforeSave() {
     if (!this.isModified("password")) {
-        return next();
+        return;
     }
 
     this.password = await bcrypt.hash(this.password, BCRYPT_SALT_ROUNDS);
@@ -209,8 +208,6 @@ userSchema.pre("save", async function hashPasswordBeforeSave(next) {
         this.passwordChangedAt = new Date(Date.now() - 1000);
         this.tokenVersion += 1;
     }
-
-    return next();
 });
 
 userSchema.methods.comparePassword = async function comparePassword(
